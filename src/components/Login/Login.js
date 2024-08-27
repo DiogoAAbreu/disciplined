@@ -1,12 +1,15 @@
 import styled from "styled-components"
-import { Titulo } from "../common"
+import { Titulo, LinkSublinhado } from "../common"
 import Formulario from "./Formulario"
 
 export default function Login() {
     return (
         <LoginWrapper>
-            <Titulo grande>Disciplined</Titulo>
+            <Titulo >Disciplined</Titulo>
             <Formulario />
+            <LinkSublinhado to={"/cadastro"}>
+                Não tem uma conta: Cadastre-se!
+            </LinkSublinhado>
         </LoginWrapper>
     )
 }
