@@ -4,4 +4,6 @@ import Botao from "./Botao";
 
 import LinkSublinhado from "./LinkSublinhado";
 
-export { Titulo, Botao, LinkSublinhado }
+import Header from "./Header";
+
+export { Titulo, Botao, LinkSublinhado, Header }

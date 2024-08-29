@@ -23,12 +23,12 @@ export default function Formulario() {
 
     function enviarForm() {
         setDisabled(true)
-        const promise = fazerCadastro(novoUsuario)
+        const promise = fazerCadastro(novoUsuario);
         promise.then(
             () => navigate('/')
         ).catch(e => {
-            alert(e.response.data.message)
             setDisabled(false);
+            alert(e.response.data.message);
         })
     }
 
@@ -79,7 +79,6 @@ export default function Formulario() {
                         ...novoUsuario,
                         [e.target.name]: e.target.value
                     })
-                    console.log(novoUsuario)
                 }} />
 
             <Botao
