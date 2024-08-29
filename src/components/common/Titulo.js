@@ -9,6 +9,6 @@ export default function Titulo({ children, ...otherProps }) {
 
 const Wrapper = styled.h1`
   font-family: "Playball", cursive;
-  font-size: 40px;
+  font-size: 70px;
   color:#126BA5;
 `

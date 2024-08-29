@@ -1,9 +1,9 @@
 import styled from "styled-components"
 
-export default function Botao({ children }) {
+export default function Botao({ children, onClick, disabled }) {
 
     return (
-        <BotaoWrapper>{children}</BotaoWrapper>
+        <BotaoWrapper onClick={onClick} disabled={disabled}>{children}</BotaoWrapper>
     )
 }
 
@@ -16,6 +16,9 @@ color: white;
 font-size:21px;
 border-radius: 5px;
 margin-top: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
 
 &:hover{
     filter: brightness(1.1);
