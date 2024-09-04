@@ -19,7 +19,8 @@ left: 0px;
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 10px;
+padding: 30px;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
 img{
     width: 52px;

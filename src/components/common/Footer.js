@@ -1,0 +1,76 @@
+import styled from "styled-components"
+import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar'
+
+export default function Footer() {
+    return (
+        <FooterWrapper>
+            <Botoes>
+                <button>Hábitos</button>
+                <div>
+                    <CircularProgressbarWithChildren
+                        value={10}
+                        background
+                        backgroundPadding={6}
+                        styles={buildStyles({
+                            backgroundColor: "#52B6FF",
+                            textColor: "#fff",
+                            pathColor: "#fff",
+                            trailColor: "transparent"
+                        })}
+                    >
+                        Hoje
+                    </CircularProgressbarWithChildren>
+                </div>
+                <button>Hístorico</button>
+            </Botoes>
+        </FooterWrapper>
+    )
+}
+
+
+const FooterWrapper = styled.footer`
+background-color: white;
+height: 70px;
+width: 100%;
+position: fixed;
+bottom: 0px;
+left: 0px;
+z-index: 1;
+display: flex;
+justify-content: center;
+align-items: center;
+box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+
+`
+
+const Botoes = styled.div`
+&&{ display: flex;
+    width: 375px;
+    height: 100%;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0px;
+    margin: 0px;
+
+    div{
+        width: 91px;
+        height: 91px;
+        color: white;
+        font-size:18px;
+        padding-bottom: 10px;
+        &:hover{
+            cursor: pointer;
+            filter: brightness(1.01);
+        }
+    }
+}
+
+button{
+    font-size: 18px;
+
+    &:hover{
+        filter: brightness(1.2);
+    }
+}
+`
+

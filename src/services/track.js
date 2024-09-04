@@ -26,6 +26,6 @@ function listarHabitos(token) {
 export {
     fazerCadastro,
     fazerLogin,
-    listarHabitos
+    listarHabitos,
 };
 

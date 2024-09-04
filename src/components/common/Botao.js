@@ -1,17 +1,20 @@
 import styled from "styled-components"
 
-export default function Botao({ children, onClick, disabled }) {
+export default function Botao({ children, onClick, disabled, tamanho }) {
 
     return (
-        <BotaoWrapper onClick={onClick} disabled={disabled}>{children}</BotaoWrapper>
+        <BotaoWrapper
+            onClick={onClick}
+            disabled={disabled}
+            $tamanho={tamanho}>{children}</BotaoWrapper>
     )
 }
 
 const BotaoWrapper = styled.button`
 background-color: #52B6FF;
 font-family: "Lexend Deca", sans-serif;
-width: 303px;
-height: 45px;
+width: ${props => props.$tamanho === "pequeno" ? '40px' : '303px'};
+height: ${props => props.$tamanho === "pequeno" ? '35px' : '45px'};;
 color: white;
 font-size:21px;
 border-radius: 5px;
