@@ -23,10 +23,10 @@ export default function Habitos() {
     return (
         <HabitosWrapper>
             <Header image={image} />
-            <div>
+            <DivStyled>
                 <span>Meus hábitos</span>
-                <Botao tamanho="pequeno">+</Botao>
-            </div>
+                <Botao width={'40px'} height={'35px'} fontSize={'27px'}>+</Botao>
+            </DivStyled>
             <NovoHabito />
             <ul>
                 {!data && <FallingLines
@@ -58,8 +58,11 @@ ul{
         font-size: 18px;
     }
 }
+`;
 
-div{
+
+
+const DivStyled = styled.div`
     margin-top: 20px;
     display: flex;
     align-items: end;
@@ -68,5 +71,4 @@ div{
     color:#126BA5;
     height: 40px;
     width: 340px;
-}
-`
+`;

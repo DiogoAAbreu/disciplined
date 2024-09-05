@@ -8,7 +8,7 @@ export default function Footer() {
                 <button>Hábitos</button>
                 <div>
                     <CircularProgressbarWithChildren
-                        value={10}
+                        value={98}
                         background
                         backgroundPadding={6}
                         styles={buildStyles({
@@ -44,32 +44,32 @@ box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 `
 
 const Botoes = styled.div`
-&&{ display: flex;
-    width: 375px;
-    height: 100%;
-    align-items: center;
-    justify-content: space-around;
-    padding: 0px;
-    margin: 0px;
+display: flex;
+width: 375px;
+height: 100%;
+align-items: center;
+justify-content: space-around;
+padding: 0px;
+margin: 0px;
 
     div{
         width: 91px;
         height: 91px;
         color: white;
         font-size:18px;
-        padding-bottom: 10px;
+        margin-bottom: 35px;
         &:hover{
             cursor: pointer;
             filter: brightness(1.01);
         }
     }
-}
+
 
 button{
     font-size: 18px;
-
+    color: #52B6FF;
     &:hover{
-        filter: brightness(1.2);
+        filter: brightness(1.1);
     }
 }
 `
