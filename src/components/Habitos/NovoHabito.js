@@ -21,9 +21,8 @@ export default function NovoHabito({ setNovoProjeto, token }) {
         e.preventDefault();
     }
 
-    function postar(token) {
-
-        const promise = postarHabitos(token);
+    function postar(habito, token) {
+        const promise = postarHabitos(habito, token);
         promise.then(res => console.log(res.data)).catch(err => {
             alert(err.response.data.message)
             console.log(habito)
@@ -32,7 +31,7 @@ export default function NovoHabito({ setNovoProjeto, token }) {
     }
 
     return (
-        <NovoHabitoWrapper>
+        <NovoHabitoWrapper token={token}>
             <form onSubmit={handleForm}>
                 <input
                     required
