@@ -12,6 +12,8 @@ export default function Habitos() {
 
     const [data, setData] = useState();
 
+    const [novoProjeto, setNovoProjeto] = useState(false);
+
     useEffect(
         () => {
             const promise = listarHabitos(token);
@@ -25,9 +27,12 @@ export default function Habitos() {
             <Header image={image} />
             <DivStyled>
                 <span>Meus hábitos</span>
-                <Botao width={'40px'} height={'35px'} fontSize={'27px'}>+</Botao>
+                <Botao width={'40px'}
+                    height={'35px'}
+                    fontSize={'27px'}
+                    onClick={() => setNovoProjeto(true)}>+</Botao>
             </DivStyled>
-            <NovoHabito />
+            {novoProjeto && <NovoHabito setNovoProjeto={setNovoProjeto} token={token} />}
             <ul>
                 {!data && <FallingLines
                     color="#126BA5" />}

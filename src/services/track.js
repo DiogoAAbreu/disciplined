@@ -2,13 +2,11 @@ import axios from "axios";
 
 
 function fazerCadastro(novoUsuario) {
-    const promise = axios.post(`${process.env.REACT_APP_BASE_URL}/auth/sign-up`, novoUsuario);
-    return promise;
+    return axios.post(`${process.env.REACT_APP_BASE_URL}/auth/sign-up`, novoUsuario);
 };
 
 function fazerLogin(usuario) {
-    const promise = axios.post(`${process.env.REACT_APP_BASE_URL}/auth/login`, usuario);
-    return promise;
+    return axios.post(`${process.env.REACT_APP_BASE_URL}/auth/login`, usuario);
 }
 
 function listarHabitos(token) {
@@ -18,14 +16,22 @@ function listarHabitos(token) {
         }
     };
 
-    const promise = axios.get(`${process.env.REACT_APP_BASE_URL}/habits`, config);
+    return axios.get(`${process.env.REACT_APP_BASE_URL}/habits`, config);
+}
 
-    return promise;
+function postarHabitos(habito, token) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+    return axios.post(`${process.env.REACT_APP_BASE_URL}habits`, habito, config);
 }
 
 export {
     fazerCadastro,
     fazerLogin,
     listarHabitos,
+    postarHabitos,
 };
 

@@ -3,36 +3,92 @@ import { Botao } from "../common";
 import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData"
 import locale from "dayjs/locale/pt-br"
+import { useState } from "react";
+import { postarHabitos } from "../../services/track";
 
-export default function NovoHabito() {
+export default function NovoHabito({ setNovoProjeto, token }) {
     dayjs.extend(localeData)
     dayjs.locale('pt-br')
     const diasSemana = dayjs.weekdays();
     const primeiraLetraDias = diasSemana.map(day => day.charAt(0).toUpperCase());
 
+    const [habito, setHabito] = useState({
+        name: '',
+        days: []
+    })
+
     function handleForm(e) {
         e.preventDefault();
+    }
+
+    function postar(token) {
+
+        const promise = postarHabitos(token);
+        promise.then(res => console.log(res.data)).catch(err => {
+            alert(err.response.data.message)
+            console.log(habito)
+        }
+        )
     }
 
     return (
         <NovoHabitoWrapper>
             <form onSubmit={handleForm}>
-                <input placeholder="nome do hábito" />
+                <input
+                    required
+                    placeholder="nome do hábito"
+                    value={habito.name}
+                    name="name"
+                    onChange={e =>
+                        setHabito({
+                            ...habito,
+                            [e.target.name]: e.target.value
+                        })}
+                />
                 <DiasDiv>
                     {primeiraLetraDias && primeiraLetraDias.map((value, index) =>
-                        <DiaSemana key={index}><p>{value}</p></DiaSemana>
-                    )}
+                        <Dia key={index}
+                            habito={habito}
+                            dayNum={index}
+                            setHabito={setHabito}><p>{value}</p></Dia>)}
                 </DiasDiv>
                 <BotoesDiv>
-                    <span>Cancelar</span>
+                    <span onClick={() => setNovoProjeto(false)}>Cancelar</span>
                     <Botao
                         width={'84px'}
                         height={'35px'}
-                        fontSize={'16px'}>Salvar</Botao>
+                        fontSize={'16px'}
+                        onClick={() => postar(habito, token)}>Salvar</Botao>
                 </BotoesDiv>
             </form>
         </NovoHabitoWrapper>
     );
+}
+
+function Dia({ children, habito, setHabito, dayNum }) {
+
+    const [selecionado, setSelecionado] = useState(false)
+
+    function selecionar() {
+        if (!selecionado) {
+            setSelecionado(true);
+            setHabito({
+                ...habito,
+                days: [...habito.days, dayNum]
+            })
+        }
+        else {
+            setSelecionado(false);
+            setHabito({
+                ...habito,
+                days: habito.days.filter(value => value !== dayNum)
+            });
+        }
+    }
+
+    return (
+        <DiaSemana $selecionado={selecionado} onClick={selecionar}>{children}</DiaSemana>
+    )
 }
 
 const NovoHabitoWrapper = styled.div`
@@ -60,7 +116,6 @@ input{
     padding: 8px;
     border: solid 1px #D4D4D4;
     border-radius:5px;
-
     &::placeholder{
         color:#DBDBDB;
     }
@@ -88,6 +143,7 @@ const DiaSemana = styled.div`
 
     width: 30px;
     height: 30px;
+    background-color: ${props => props.$selecionado ? '#CFCFCF' : 'white'};
     border: 1px solid #D4D4D4;
     border-radius: 5px;
     display: flex;
@@ -95,9 +151,12 @@ const DiaSemana = styled.div`
     justify-content: center;
     margin-right: 5px;
     p{
-        font-size: 20px;
-        color: #DBDBDB;
-    }
+    font-size: 20px;
+    color: ${props => props.$selecionado ? 'white' : '#DBDBDB'};
+}
+    &:hover{
+    cursor: pointer;
+}
 
 `;
 

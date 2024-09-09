@@ -23,11 +23,10 @@ export default function Formulario() {
         setDisabled(true);
         const promise = fazerLogin(usuario)
         promise.then(res => {
-            console.log(res.data)
             navigate('/habitos', { state: res.data })
-        }).catch(e => {
+        }).catch(err => {
             setDisabled(false);
-            alert(e.response.data.message);
+            alert(err.response.data.message);
         })
     }
 
