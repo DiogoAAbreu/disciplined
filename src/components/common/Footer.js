@@ -1,11 +1,14 @@
 import styled from "styled-components"
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar'
+import { useNavigate } from "react-router-dom"
 
-export default function Footer() {
+export default function Footer({ token, image }) {
+    const navigate = useNavigate();
+
     return (
         <FooterWrapper>
             <Botoes>
-                <button>Hábitos</button>
+                <button onClick={() => { navigate('/habitos', { state: { token, image } }) }}>Hábitos</button>
                 <div>
                     <CircularProgressbarWithChildren
                         value={98}
@@ -21,7 +24,7 @@ export default function Footer() {
                         Hoje
                     </CircularProgressbarWithChildren>
                 </div>
-                <button>Hístorico</button>
+                <button onClick={() => { navigate('/historico', { state: { token, image } }) }}>Hístorico</button>
             </Botoes>
         </FooterWrapper>
     )
@@ -40,7 +43,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
+font-family: "Lexend Deca", sans-serif;
 `
 
 const Botoes = styled.div`

@@ -5,8 +5,12 @@ import localeData from "dayjs/plugin/localeData"
 import locale from "dayjs/locale/pt-br"
 import { useState } from "react";
 import { postarHabitos } from "../../services/track";
+import { FallingLines } from "react-loader-spinner";
 
-export default function NovoHabito({ setNovoProjeto, token }) {
+export default function NovoHabito({
+    setNovoProjeto,
+    token,
+    setData }) {
     dayjs.extend(localeData)
     dayjs.locale('pt-br')
     const diasSemana = dayjs.weekdays();
@@ -17,13 +21,21 @@ export default function NovoHabito({ setNovoProjeto, token }) {
         days: []
     })
 
+    const [carregando, setCarregando] = useState(false)
+
     function handleForm(e) {
         e.preventDefault();
     }
 
     function postar(habito, token) {
+        setCarregando(true)
         const promise = postarHabitos(habito, token);
-        promise.then(res => console.log(res.data)).catch(err => {
+        promise.then(res => {
+            console.log(res.data)
+            setNovoProjeto(false)
+            setCarregando(false)
+        }).catch(err => {
+            setCarregando(false)
             alert(err.response.data.message)
             console.log(habito)
         }
@@ -31,9 +43,10 @@ export default function NovoHabito({ setNovoProjeto, token }) {
     }
 
     return (
-        <NovoHabitoWrapper token={token}>
+        <NovoHabitoWrapper >
             <form onSubmit={handleForm}>
                 <input
+                    disabled={carregando}
                     required
                     placeholder="nome do hábito"
                     value={habito.name}
@@ -49,7 +62,8 @@ export default function NovoHabito({ setNovoProjeto, token }) {
                         <Dia key={index}
                             habito={habito}
                             dayNum={index}
-                            setHabito={setHabito}><p>{value}</p></Dia>)}
+                            setHabito={setHabito}
+                            carregando={carregando}><p>{value}</p></Dia>)}
                 </DiasDiv>
                 <BotoesDiv>
                     <span onClick={() => setNovoProjeto(false)}>Cancelar</span>
@@ -57,18 +71,23 @@ export default function NovoHabito({ setNovoProjeto, token }) {
                         width={'84px'}
                         height={'35px'}
                         fontSize={'16px'}
-                        onClick={() => postar(habito, token)}>Salvar</Botao>
+                        onClick={() => postar(habito, token)}>{carregando ? <FallingLines
+                            color="white"
+                            width="35px" /> : 'Salvar'}</Botao>
                 </BotoesDiv>
             </form>
         </NovoHabitoWrapper>
     );
 }
 
-function Dia({ children, habito, setHabito, dayNum }) {
+function Dia({ children, habito, setHabito, dayNum, carregando }) {
 
     const [selecionado, setSelecionado] = useState(false)
 
     function selecionar() {
+        if (carregando) {
+            return;
+        }
         if (!selecionado) {
             setSelecionado(true);
             setHabito({

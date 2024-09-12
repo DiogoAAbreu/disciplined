@@ -8,7 +8,7 @@ import NovoHabito from "./NovoHabito";
 
 export default function Habitos() {
     const location = useLocation()
-    const { id, name, image, token } = location.state;
+    const { image, token } = location.state;
 
     const [data, setData] = useState();
 
@@ -22,17 +22,21 @@ export default function Habitos() {
             })
         }, [token])
 
+    console.log(data)
     return (
         <HabitosWrapper>
             <Header image={image} />
             <DivStyled>
-                <span>Meus hábitos</span>
+                <SpanStyled>Meus hábitos</SpanStyled>
                 <Botao width={'40px'}
                     height={'35px'}
                     fontSize={'27px'}
                     onClick={() => setNovoProjeto(true)}>+</Botao>
             </DivStyled>
-            {novoProjeto && <NovoHabito setNovoProjeto={setNovoProjeto} token={token} />}
+            {novoProjeto &&
+                <NovoHabito setNovoProjeto={setNovoProjeto}
+                    token={token}
+                    setData={setData} />}
             <ul>
                 {!data && <FallingLines
                     color="#126BA5" />}
@@ -42,7 +46,7 @@ export default function Habitos() {
                         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a acompanhar!
                     </span>}
             </ul>
-            <Footer />
+            <Footer token={token} image={image} />
         </HabitosWrapper >)
 }
 
@@ -65,7 +69,10 @@ ul{
 }
 `;
 
-
+const SpanStyled = styled.span`
+font-size: 23px;
+color:#126BA5;
+`
 
 const DivStyled = styled.div`
     margin-top: 20px;
