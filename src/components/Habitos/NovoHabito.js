@@ -10,7 +10,8 @@ import { FallingLines } from "react-loader-spinner";
 export default function NovoHabito({
     setNovoProjeto,
     token,
-    setData }) {
+    setData,
+    data }) {
     dayjs.extend(localeData)
     dayjs.locale('pt-br')
     const diasSemana = dayjs.weekdays();
@@ -34,6 +35,7 @@ export default function NovoHabito({
             console.log(res.data)
             setNovoProjeto(false)
             setCarregando(false)
+            setData([...data, res.data])
         }).catch(err => {
             setCarregando(false)
             alert(err.response.data.message)

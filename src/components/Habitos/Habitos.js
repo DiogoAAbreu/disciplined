@@ -5,6 +5,7 @@ import { listarHabitos } from "../../services/track";
 import { FallingLines } from "react-loader-spinner"
 import styled from "styled-components";
 import NovoHabito from "./NovoHabito";
+import Habito from "./Habito";
 
 export default function Habitos() {
     const location = useLocation()
@@ -36,11 +37,12 @@ export default function Habitos() {
             {novoProjeto &&
                 <NovoHabito setNovoProjeto={setNovoProjeto}
                     token={token}
-                    setData={setData} />}
+                    setData={setData}
+                    data={data} />}
             <ul>
                 {!data && <FallingLines
                     color="#126BA5" />}
-                {data?.length > 0 && data.map((value, index) => <li key={index}>{value.name}</li>)}
+                {data && data.map(value => <Habito key={value.id} habito={value} />)}
                 {data && data?.length === 0 &&
                     <span>
                         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a acompanhar!
@@ -60,8 +62,10 @@ align-items: center;
 ul{
     margin-top: 30px;
     display: flex;
+    flex-direction: column;
     justify-content:center;
     width: 340px;
+    margin-bottom: 20px;
     span{
         color:#666666;
         font-size: 18px;

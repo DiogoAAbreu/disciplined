@@ -21,7 +21,7 @@ align-items: center;
 justify-content: space-between;
 padding: 30px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-
+z-index: 1;
 img{
     width: 52px;
     height: 52px;
