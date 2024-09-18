@@ -16,7 +16,7 @@ function listarHabitos(token) {
         }
     };
 
-    return axios.get(`${process.env.REACT_APP_BASE_URL}/habits`, config);
+    return axios.get(`${process.env.REACT_APP_BASE_URL}habits`, config);
 }
 
 function postarHabitos(habito, token) {
@@ -28,10 +28,21 @@ function postarHabitos(habito, token) {
     return axios.post(`${process.env.REACT_APP_BASE_URL}habits`, habito, config);
 }
 
+function deletarHabito(idHabito, token) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
+    return axios.delete(`${process.env.REACT_APP_BASE_URL}habits/${idHabito}`, config)
+}
+
 export {
     fazerCadastro,
     fazerLogin,
     listarHabitos,
     postarHabitos,
+    deletarHabito,
 };
 

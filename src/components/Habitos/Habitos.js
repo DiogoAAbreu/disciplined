@@ -42,7 +42,12 @@ export default function Habitos() {
             <ul>
                 {!data && <FallingLines
                     color="#126BA5" />}
-                {data && data.map(value => <Habito key={value.id} habito={value} />)}
+                {data && data.map(value => <Habito key={value.id}
+                    habito={value}
+                    idHabito={value.id}
+                    token={token}
+                    data={data}
+                    setData={setData} />)}
                 {data && data?.length === 0 &&
                     <span>
                         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a acompanhar!
@@ -62,6 +67,7 @@ align-items: center;
 ul{
     margin-top: 30px;
     display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content:center;
     width: 340px;

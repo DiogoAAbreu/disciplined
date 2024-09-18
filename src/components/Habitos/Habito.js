@@ -3,28 +3,37 @@ import dayjs from "dayjs";
 import localeData from "dayjs/plugin/localeData"
 import locale from "dayjs/locale/pt-br"
 import { useEffect, useState } from "react";
+import DeletarHabito from "./DeletarHabito";
 
-export default function Habito({ habito }) {
+export default function Habito({ habito, idHabito, token, data, setData }) {
 
     dayjs.extend(localeData)
     dayjs.locale('pt-br')
     const diasSemana = dayjs.weekdays();
     const primeiraLetraDias = diasSemana.map(day => day.charAt(0).toUpperCase());
+    const [deletar, setDeletar] = useState(false)
 
     return (
         <HabitoWrapper>
-            <span>{habito.name}</span>
-            <DiasDiv>
-                {primeiraLetraDias && primeiraLetraDias.map((value, index) =>
-                    <Dia key={index}
-                        numDia={index}
-                        diasHabito={habito.days}>
-                        <p>{value}</p>
-                    </Dia>)}
-            </DiasDiv>
-            <StyledIcon className="ionicon">
-                <ion-icon name="trash-outline"></ion-icon>
-            </StyledIcon>
+            {!deletar ? (
+                <>
+                    <span>{habito.name}</span>
+                    <DiasDiv>
+                        {primeiraLetraDias && primeiraLetraDias.map((value, index) =>
+                            <Dia key={index}
+                                numDia={index}
+                                diasHabito={habito.days}>
+                                <p>{value}</p>
+                            </Dia>)}
+                    </DiasDiv>
+                    <StyledIcon className="ionicon" onClick={() => setDeletar(true)}>
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </StyledIcon>
+                </>) : <DeletarHabito setDeletar={setDeletar}
+                    idHabito={idHabito}
+                    token={token}
+                    data={data}
+                    setData={setData} />}
         </HabitoWrapper>
     )
 }
@@ -52,7 +61,7 @@ background-color: white;
 margin-top:10px;
 display: flex;
 flex-direction: column;
-padding: 10px 0px 0px 20px;
+padding: 15px 0px 0px 20px;
 box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 position: relative;
 margin-bottom:20px;
