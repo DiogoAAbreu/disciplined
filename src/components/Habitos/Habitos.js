@@ -1,32 +1,33 @@
-import { useLocation } from "react-router-dom"
 import { Header, Botao, Footer } from "../common";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { listarHabitos } from "../../services/track";
 import { FallingLines } from "react-loader-spinner"
 import styled from "styled-components";
 import NovoHabito from "./NovoHabito";
 import Habito from "./Habito";
+import { AuthContext } from "../../context/auth";
 
 export default function Habitos() {
-    const location = useLocation()
-    const { image, token } = location.state;
+
+    const { usuarioData } = useContext(AuthContext)
 
     const [data, setData] = useState();
 
     const [novoProjeto, setNovoProjeto] = useState(false);
-
+    console.log(usuarioData.token)
     useEffect(
         () => {
-            const promise = listarHabitos(token);
+            console.log(usuarioData.token)
+            const promise = listarHabitos(usuarioData.token);
             promise.then((res) => {
+                console.log(res.da)
                 setData(res.data);
-            })
-        }, [token])
+            }).catch(err => alert(err.response.data.message))
+        }, [])
 
-    console.log(data)
     return (
         <HabitosWrapper>
-            <Header image={image} />
+            <Header image={usuarioData.image} />
             <DivStyled>
                 <SpanStyled>Meus hábitos</SpanStyled>
                 <Botao width={'40px'}
@@ -36,7 +37,7 @@ export default function Habitos() {
             </DivStyled>
             {novoProjeto &&
                 <NovoHabito setNovoProjeto={setNovoProjeto}
-                    token={token}
+                    token={usuarioData.token}
                     setData={setData}
                     data={data} />}
             <ul>
@@ -45,7 +46,7 @@ export default function Habitos() {
                 {data && data.map(value => <Habito key={value.id}
                     habito={value}
                     idHabito={value.id}
-                    token={token}
+                    token={usuarioData.token}
                     data={data}
                     setData={setData} />)}
                 {data && data?.length === 0 &&
@@ -53,7 +54,7 @@ export default function Habitos() {
                         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a acompanhar!
                     </span>}
             </ul>
-            <Footer token={token} image={image} />
+            <Footer token={usuarioData.token} image={usuarioData.image} />
         </HabitosWrapper >)
 }
 

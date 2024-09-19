@@ -1,10 +1,13 @@
 import styled from "styled-components"
 import { Botao } from "../common"
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { FallingLines } from "react-loader-spinner"
 import { fazerLogin } from "../../services/track"
 import { useNavigate } from "react-router-dom"
+import { AuthContext } from "../../context/auth"
 export default function Formulario() {
+
+    const { setUsuarioData } = useContext(AuthContext)
 
     const [usuario, setUsuario] = useState({
         email: '',
@@ -23,7 +26,11 @@ export default function Formulario() {
         setDisabled(true);
         const promise = fazerLogin(usuario)
         promise.then(res => {
-            navigate('/habitos', { state: res.data })
+            setUsuarioData({
+                token: res.data.token,
+                image: res.data.image
+            })
+            navigate('/habitos')
         }).catch(err => {
             setDisabled(false);
             alert(err.response.data.message);
