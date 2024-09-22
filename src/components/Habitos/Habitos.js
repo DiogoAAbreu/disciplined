@@ -1,6 +1,5 @@
 import { Header, Botao, Footer } from "../common";
-import { useEffect, useState, useContext } from "react";
-import { listarHabitos } from "../../services/track";
+import { useState, useContext } from "react";
 import { FallingLines } from "react-loader-spinner"
 import styled from "styled-components";
 import NovoHabito from "./NovoHabito";
@@ -11,23 +10,14 @@ import { HabitosContext } from "../../context/habitos";
 export default function Habitos() {
 
     const { usuarioData } = useContext(AuthContext);
-    const { token, image } = usuarioData;
-    const [data, setData] = useState();
+    const { token } = usuarioData;
+    const { data, setData } = useContext(HabitosContext);
 
     const [novoProjeto, setNovoProjeto] = useState(false);
-    console.log(token)
-    useEffect(
-        () => {
-            console.log(token)
-            const promise = listarHabitos(token);
-            promise.then((res) => {
-                setData(res.data);
-            }).catch(err => alert(err.response.data.message))
-        }, [token])
 
     return (
         <HabitosWrapper>
-            <Header image={image} />
+            <Header />
             <DivStyled>
                 <SpanStyled>Meus hábitos</SpanStyled>
                 <Botao width={'40px'}
@@ -54,7 +44,7 @@ export default function Habitos() {
                         Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a acompanhar!
                     </span>}
             </ul>
-            <Footer token={token} image={image} />
+            <Footer />
         </HabitosWrapper >)
 }
 

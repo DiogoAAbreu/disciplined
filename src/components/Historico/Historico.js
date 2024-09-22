@@ -1,20 +1,16 @@
 import styled from "styled-components"
 import { Footer, Header } from "../common"
-import { useLocation } from "react-router-dom"
 
 export default function Historico() {
-    const location = useLocation()
-
-    const { image, token } = location.state;
 
     return (
         <HistoricoWrapper>
-            <Header image={image} />
+            <Header />
             <Conteudo>
                 <SpanStyled>Histórico</SpanStyled>
                 <PStyled>Em breve você poderá ver o histórico dos seus hábitos aqui!</PStyled>
             </Conteudo>
-            <Footer token={token} image={image} />
+            <Footer />
         </HistoricoWrapper>)
 }
 

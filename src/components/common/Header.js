@@ -1,11 +1,16 @@
 import styled from "styled-components"
 import Titulo from "./Titulo"
+import { AuthContext } from "../../context/auth"
+import { useContext } from "react"
 
-export default function Header({ image }) {
+export default function Header() {
+
+    const { usuarioData } = useContext(AuthContext);
+
     return (
         <HeaderWrapper>
             <Titulo tamanho={'pequeno'}>Disciplined</Titulo>
-            <img src={image} alt='Foto Perfil' />
+            <img src={usuarioData.image} alt='Foto Perfil' />
         </HeaderWrapper>)
 }
 
