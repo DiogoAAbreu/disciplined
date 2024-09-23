@@ -23,8 +23,9 @@ export default function Hoje() {
             <Conteudo>
                 <SpanStyled>{dataFormatada}</SpanStyled>
                 <PStyled $porcentagemConcluida={porcentagemConcluida}>
-                    {porcentagemConcluida === 0 ? 'Nenhum hábito concluído ainda' :
-                        `${porcentagemConcluida}% dos hábitos concluídos`}
+                    {isNaN(porcentagemConcluida) && 'Nenhum hábito para hoje'}
+                    {!isNaN(porcentagemConcluida) && porcentagemConcluida === 0 && habitos.length !== 0 && 'Nenhum hábito concluído ainda'}
+                    {porcentagemConcluida > 0 && `${porcentagemConcluida}% dos hábitos concluídos`}
                 </PStyled>
                 <ul>
                     {habitos && habitos.map(value => <HabitoHoje
@@ -63,7 +64,7 @@ color:#126BA5;
 margin-bottom: 20px;
 `
 const PStyled = styled.p`
-color: ${props => props.$porcentagemConcluida === 0 ? '#666666' : '#8FC549'};
+color: ${props => props.$porcentagemConcluida === 0 || isNaN(props.$porcentagemConcluida) ? '#666666' : '#8FC549'};
 font-size: 18px;
 margin: 20px 0px;
 `

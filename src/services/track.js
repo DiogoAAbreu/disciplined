@@ -57,6 +57,15 @@ function marcarConcluido(id, token) {
     return axios.post(`${process.env.REACT_APP_BASE_URL}habits/${id}/check`, '', config)
 }
 
+function desmarcarConcluido(id, token) {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+    return axios.post(`${process.env.REACT_APP_BASE_URL}habits/${id}/uncheck`, '', config)
+}
+
 export {
     fazerCadastro,
     fazerLogin,
@@ -65,5 +74,6 @@ export {
     deletarHabito,
     listarHabitosHoje,
     marcarConcluido,
+    desmarcarConcluido,
 };
 
