@@ -1,29 +1,35 @@
 import styled from "styled-components"
 import { buildStyles, CircularProgressbarWithChildren } from 'react-circular-progressbar'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
+import { useContext } from "react";
+import { HojeContext } from "../../context/hoje";
 
 export default function Footer() {
     const navigate = useNavigate();
+
+    const { porcentagemConcluida } = useContext(HojeContext);
 
     return (
         <FooterWrapper>
             <Botoes>
                 <button onClick={() => { navigate('/habitos') }}>Hábitos</button>
-                <div>
-                    <CircularProgressbarWithChildren
-                        value={98}
-                        background
-                        backgroundPadding={6}
-                        styles={buildStyles({
-                            backgroundColor: "#52B6FF",
-                            textColor: "#fff",
-                            pathColor: "#fff",
-                            trailColor: "transparent"
-                        })}
-                    >
-                        Hoje
-                    </CircularProgressbarWithChildren>
-                </div>
+                <Link to={'/hoje'}>
+                    <div>
+                        <CircularProgressbarWithChildren
+                            value={porcentagemConcluida}
+                            background
+                            backgroundPadding={6}
+                            styles={buildStyles({
+                                backgroundColor: "#52B6FF",
+                                textColor: "#fff",
+                                pathColor: "#fff",
+                                trailColor: "transparent"
+                            })}
+                        >
+                            Hoje
+                        </CircularProgressbarWithChildren>
+                    </div>
+                </Link>
                 <button onClick={() => { navigate('/historico') }}>Hístorico</button>
             </Botoes>
         </FooterWrapper>
