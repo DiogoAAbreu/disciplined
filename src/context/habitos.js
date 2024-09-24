@@ -8,14 +8,18 @@ export default function HabitosProvider({ children }) {
 
     const { usuarioData } = useContext(AuthContext);
 
+    const token = usuarioData ? usuarioData.token : ''
+
     const [data, setData] = useState()
     useEffect(
         () => {
-            const promise = listarHabitos(usuarioData.token);
-            promise.then((res) => {
-                setData(res.data);
-            }).catch(err => alert(err.response.data.message))
-        }, [usuarioData.token]);
+            if (token) {
+                const promise = listarHabitos(token);
+                promise.then((res) => {
+                    setData(res.data);
+                }).catch(err => alert(err.response.data.message))
+            }
+        }, [token]);
 
     return (
         <HabitosContext.Provider value={{ data, setData }}>

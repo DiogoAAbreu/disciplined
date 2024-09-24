@@ -13,6 +13,7 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyle />
+
       <AuthProvider>
         <HabitosProvider>
           <HojeProvider>
@@ -26,6 +27,7 @@ function App() {
           </HojeProvider>
         </HabitosProvider>
       </AuthProvider>
+
     </BrowserRouter >
   );
 }

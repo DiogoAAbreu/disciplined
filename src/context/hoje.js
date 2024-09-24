@@ -11,13 +11,17 @@ export default function HojeProvider({ children }) {
     const { usuarioData } = useContext(AuthContext)
     const { data } = useContext(HabitosContext)
 
+    const token = usuarioData ? usuarioData.token : '';
+
     useEffect(() => {
-        const promise = listarHabitosHoje(usuarioData.token)
-        promise.then(res => {
-            setHabitos(res.data);
-            setHabitosConcluidos(res.data.filter(value => value.done === true))
-        })
-    }, [data, habitosConcluidos, usuarioData])
+        if (token) {
+            const promise = listarHabitosHoje(token)
+            promise.then(res => {
+                setHabitos(res.data);
+                setHabitosConcluidos(res.data.filter(value => value.done === true))
+            })
+        }
+    }, [data, habitosConcluidos, token])
     return (
         <HojeContext.Provider value={{
             habitos,
