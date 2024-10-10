@@ -25,7 +25,7 @@ export default function Hoje() {
                 <PStyled $porcentagemConcluida={porcentagemConcluida}>
                     {isNaN(porcentagemConcluida) && 'Nenhum hábito para hoje'}
                     {!isNaN(porcentagemConcluida) && porcentagemConcluida === 0 && habitos.length !== 0 && 'Nenhum hábito concluído ainda'}
-                    {porcentagemConcluida > 0 && `${porcentagemConcluida}% dos hábitos concluídos`}
+                    {porcentagemConcluida > 0 && `${porcentagemConcluida.toFixed(2)}% dos hábitos concluídos`}
                 </PStyled>
                 <ul>
                     {habitos && habitos.map(value => <HabitoHoje
