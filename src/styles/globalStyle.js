@@ -48,17 +48,17 @@ table {
 	border-spacing: 0;
 }
 button {
-    all: unset; /* Remove todos os estilos padrão */
-    display: inline; /* Ou 'inline-block' se você precisar de dimensões ajustáveis */
-    cursor: pointer; /* Adiciona o cursor de mão padrão para indicar que é clicável */
-    background: transparent; /* Define o fundo como transparente */
-    border: none; /* Remove a borda padrão */
-    padding: 0; /* Remove o padding padrão */
-    margin: 0; /* Remove a margem padrão */
-    font: inherit; /* Herda a fonte do elemento pai */
-    text-align: center; /* Opcional: centraliza o texto */
-    line-height: normal; /* Opcional: define o line-height como normal */
-    color: inherit; /* Opcional: herda a cor do texto do elemento pai */
+    all: unset; 
+    display: inline; 
+    cursor: pointer; 
+    background: transparent; 
+    border: none; 
+    padding: 0; 
+    margin: 0; 
+    font: inherit; 
+    text-align: center; 
+    line-height: normal; 
+    color: inherit; 
 }
 *{
 		font-family: "Lexend Deca", sans-serif;
