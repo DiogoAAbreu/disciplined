@@ -32,14 +32,12 @@ export default function NovoHabito({
         setCarregando(true)
         const promise = postarHabitos(habito, token);
         promise.then(res => {
-            console.log(res.data)
             setNovoProjeto(false)
             setCarregando(false)
             setData([...data, res.data])
         }).catch(err => {
             setCarregando(false)
             alert(err.response.data.message)
-            console.log(habito)
         }
         )
     }
